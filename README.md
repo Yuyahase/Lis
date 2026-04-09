@@ -2,5 +2,5 @@
 
 ## Pages
 
-- LP: https://yuyahase.github.io/Lis/LP/
-- HP: https://yuyahase.github.io/Lis/HP/
+- LP: https://zenith-blue.github.io/Lis/LP/
+- HP: https://zenith-blue.github.io/Lis/HP/
