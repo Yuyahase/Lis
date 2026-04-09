@@ -1,0 +1,28 @@
+name: Deploy LP to Xserver
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'LP/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.XSERVER_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p 10022 xs398690.xsrv.jp >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Deploy to Xserver
+        run: |
+          rsync -avz --delete \
+            -e "ssh -p 10022 -i ~/.ssh/id_rsa" \
+            ./LP/ \
+            xs398690@xs398690.xsrv.jp:~/lis-sales-japan.jp/public_html/lp2.lis-sales-japan.jp/
